@@ -16,8 +16,24 @@ class MainTitleBar(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        profile_image_path = 'D://github//qt_demo_test//toolbar//Cropped_Image.png'
         self.ui.user_profile_button = QPushButton()
         self.ui.user_profile_button.setObjectName('user_profile_button')
+        self.ui.user_profile_button.setFixedSize(40, 40)  # Set button size
+        self.ui.user_profile_button.setStyleSheet(f"""
+                            QPushButton {{
+                                border-radius: 20px;
+                                border: 2px solid #CCC;
+                                background-image: url({profile_image_path});
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                            }}
+                            QPushButton:hover {{
+                                border: 2px solid #3498db;
+                            }}
+                        """)
+
         self.ui.horizontalLayout_2.addWidget(self.ui.user_profile_button)
         self.ui.user_profile_button.clicked.connect(self.need_show_user_profile_widget)
 
