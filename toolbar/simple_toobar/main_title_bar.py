@@ -48,7 +48,7 @@ class MainTitleBar(QWidget):
         #                border: 2px solid #CCC;
         #            }}
         #        """)
-        self.ui.user_profile_button.setStyleSheet("border-radius: 30px; border: 2px solid #CCC;")
+        #self.ui.user_profile_button.setStyleSheet("border-radius: 30px; border: 2px solid #CCC;")
 
         profile_image_path = "D://github//qt_demo_test//toolbar//Cropped_Image.png"  # Change to your image path
         round_pixmap = create_round_pixmap(profile_image_path, 60)

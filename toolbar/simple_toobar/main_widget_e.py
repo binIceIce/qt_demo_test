@@ -39,7 +39,12 @@ class MainWidget(QWidget):
 
         self.ext_title_bar.need_show_user_profile_widget.connect(load_user_profile_page)
 
+
 app = QApplication(sys.argv)
+
+with open(r"D:\github\qt_demo_test\stylesheet.qss", "r") as f:
+    app.setStyleSheet(f.read())
+
 window = MainWidget()  # Directly instantiate MainWidget as the main window
 window.show()
 sys.exit(app.exec_())
