@@ -19,43 +19,30 @@ class UserProfileButton(IconButton):
     # QPixmap: 主要用于加载，显示和操作图片文件
     #
     def set_user_profile_pixmap(self, pixmap: QPixmap):
-        size = 60
-        pixmap = QPixmap('D:\\github\\qt_demo_test\\toolbar\\Cropped_Image.png')
-        pixmap = pixmap.scaled(size, size, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)  # Resize
+        qp = QPainter()
+        # 此处的分隔符使用 '//' or '\\' 都可以
+        icon_pixmap = QPixmap('D://github//qt_demo_test//toolbar//user_profile_mask.png').scaled(pixmap.size(),
+                                                                                Qt.KeepAspectRatio,
+                                                                                Qt.SmoothTransformation)
+        qp.begin(icon_pixmap)
+        qp.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        qp.drawPixmap(0, 0, pixmap)
+        qp.end()
+        self.setIcon(QIcon(icon_pixmap))
 
-        # Create a mask for the round shape
-        mask = QPixmap(size, size)
-        mask.fill(Qt.transparent)
-
-        painter = QPainter(mask)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(Qt.black))
-        painter.drawEllipse(0, 0, size, size)  # Draw a circular mask
-        painter.end()
-
-        # Apply the mask to the pixmap
-        pixmap.setMask(mask.mask())
-
-        self.setIcon(QIcon(pixmap))
-        self.setIconSize(QSize(60, 60))
-
-
-
-        """
-        mask_pixmap = QPixmap(r'D://github//qt_demo_test//toolbar//Cropped_Image.png').scaled(pixmap.size(),
-                                                                                              Qt.KeepAspectRatio,
-                                                                                              Qt.SmoothTransformation)
+        mask_pixmap = QPixmap('D://github//qt_demo_test//toolbar//user_profile_mask.png').scaled(pixmap.size(),
+                                                                                                 Qt.KeepAspectRatio,
+                                                                                                 Qt.SmoothTransformation)
         qp.begin(mask_pixmap)
         qp.setCompositionMode(QPainter.CompositionMode_SourceIn)
         qp.setOpacity(0.3)
         qp.fillRect(mask_pixmap.rect(), Qt.black)
         qp.end()
         self.__mask_icon__ = QIcon(mask_pixmap)
-        """
 
     def paintEvent(self, event: QPaintEvent):
         super(UserProfileButton, self).paintEvent(event)
-        if self.loading_visible:
+        if self.loading_visible:  # 如果 loading_visiable 为 True, 头像会变暗
             qp = QPainter(self)
             self.__mask_icon__.paint(qp, self.rect(), Qt.AlignCenter)
             qp.end()

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, pyqtSignal, QSignalBlocker, QPoint, QObject, QEvent, QSize
-from PyQt5.QtGui import QMovie, QIcon, QPixmap, QPainter, QBrush
+from PyQt5.QtGui import QMovie, QIcon, QPixmap, QPainter, QBrush, QColor, QFont, QFontMetrics
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton
 
 #from .ui_form_test import Ui_Form
@@ -9,9 +9,35 @@ from user_profile_button import UserProfileButton
 
 
 def create_default_profile_icon():
-    size = 60
+    letter = 'ice'
+    color = (QColor(0xff, 0xe1, 0x7b),
+             QColor(0xff, 0x73, 0x98),
+             QColor(0xff, 0x82, 0x78),
+             QColor(0x72, 0xdc, 0xa2),
+             QColor(0x8a, 0xa6, 0xf9))[1124 % 5]
+    size = 100
     pixmap = QPixmap(size, size)
+    pixmap.fill(color)
+    qp = QPainter()
+    qp.begin(pixmap)
+    qp.setRenderHint(QPainter.Antialiasing)
+    qp.setRenderHint(QPainter.TextAntialiasing)
+    qp.setPen(QColor(255, 255, 255))
 
+    font = QFont('"Microsoft YaHei", '
+                 '"PingFang SC", '
+                 '"WenQuanYi Micro Hei",')
+    font.setPointSize(int(size * 0.3))
+    font_metrics = QFontMetrics(font)
+
+    v1 = (size - font_metrics.width(letter)) / 2
+    v2 = (size - (font_metrics.ascent() + font_metrics.descent())) / 2 + font_metrics.ascent()
+
+    print('v1 = %s, v2 = %s' % (v1, v2))
+    point = QPoint(int(v1), int(v2))
+    qp.setFont(font)
+    qp.drawText(point, letter)
+    qp.end()
     return pixmap
 
 
