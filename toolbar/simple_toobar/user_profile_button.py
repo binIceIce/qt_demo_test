@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QPaintEvent, QPainter, QPixmap
+from PyQt5.QtCore import Qt, QRectF, QSize
+from PyQt5.QtGui import QIcon, QPaintEvent, QPainter, QPixmap, QPainter, QPainterPath, QBrush
 from PyQt5.QtWidgets import QWidget
 
 from IconButton import IconButton
@@ -19,30 +19,40 @@ class UserProfileButton(IconButton):
     # QPixmap: 主要用于加载，显示和操作图片文件
     #
     def set_user_profile_pixmap(self, pixmap: QPixmap):
-        # QPainter 的主要作用是提供一个绘图接口，用于在各种绘图设备（如窗口、图像、打印机等）上进行绘制。
-        qp = QPainter()
-        # Qt.KeepAspectRatio: 用于指定在调整图像大小时保持图像的宽高比
-        # Qt.SmoothTransformation: 用于指定在调整图像大小时使用平滑变换算法
-        icon_pixmap = QPixmap('D://github//qt_demo_test//toolbar//Cropped_Image.png').scaled(pixmap.size(),
-                                                                                             Qt.KeepAspectRatio,
-                                                                                             Qt.SmoothTransformation)
-        qp.begin(icon_pixmap)
-        qp.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        qp.drawPixmap(0, 0, pixmap)
-        qp.end()
-        self.setIcon(QIcon(icon_pixmap))
+        size = 60
+        pixmap = QPixmap('D:\\github\\qt_demo_test\\toolbar\\Cropped_Image.png')
+        pixmap = pixmap.scaled(size, size, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)  # Resize
 
+        # Create a mask for the round shape
+        mask = QPixmap(size, size)
+        mask.fill(Qt.transparent)
+
+        painter = QPainter(mask)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(QBrush(Qt.black))
+        painter.drawEllipse(0, 0, size, size)  # Draw a circular mask
+        painter.end()
+
+        # Apply the mask to the pixmap
+        pixmap.setMask(mask.mask())
+
+        self.setIcon(QIcon(pixmap))
+        self.setIconSize(QSize(60, 60))
+
+
+
+        """
         mask_pixmap = QPixmap(r'D://github//qt_demo_test//toolbar//Cropped_Image.png').scaled(pixmap.size(),
-                                                                                   Qt.KeepAspectRatio,
-                                                                                   Qt.SmoothTransformation)
+                                                                                              Qt.KeepAspectRatio,
+                                                                                              Qt.SmoothTransformation)
         qp.begin(mask_pixmap)
         qp.setCompositionMode(QPainter.CompositionMode_SourceIn)
         qp.setOpacity(0.3)
         qp.fillRect(mask_pixmap.rect(), Qt.black)
         qp.end()
         self.__mask_icon__ = QIcon(mask_pixmap)
+        """
 
-    # 自定义绘制
     def paintEvent(self, event: QPaintEvent):
         super(UserProfileButton, self).paintEvent(event)
         if self.loading_visible:
