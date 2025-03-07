@@ -10,8 +10,10 @@ class IconButton(QPushButton):
         self.setFlat(True)
 
     def paintEvent(self, event: QPaintEvent):
-        event.accept()
+        event.accept() # 在此处理，不要向上传递
         if self.testAttribute(Qt.WA_Disabled):
+            # QIcon.Disabled: 图标的禁用模式, 通常图标的颜色会灰色或者淡化方式来显示,表示控键不可用
+            # 只需要通过 QIon.Disabled 即可达到置灰的目的
             mode = QIcon.Disabled
         elif self.testAttribute(Qt.WA_UnderMouse):
             mode = QIcon.Selected if self.isDown() else QIcon.Active
