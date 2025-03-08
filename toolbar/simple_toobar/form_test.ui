@@ -37,7 +37,14 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>25</number>
+       </property>
+       <property name="rightMargin">
+        <number>72</number>
+       </property>
+      </layout>
      </item>
     </layout>
    </item>

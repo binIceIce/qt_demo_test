@@ -83,11 +83,11 @@ class BasicTitleBar(QWidget):
     # for windows set
     def resizeEvent(self, event: QResizeEvent):
         # 可以调整按钮的位置
-        self.minimize_button.move(self.width() - self.minimize_button.width() - 155,
+        self.minimize_button.move(self.width() - self.minimize_button.width() - 65,
                                       (self.height() - self.minimize_button.height()) / 2)
-        self.maximize_button.move(self.width() - self.maximize_button.width() - 130,
+        self.maximize_button.move(self.width() - self.maximize_button.width() - 40,
                                       (self.height() - self.minimize_button.height()) / 2)
-        self.close_button.move(self.width() - self.close_button.width() - 95,
+        self.close_button.move(self.width() - self.close_button.width() - 15,
                                    (self.height() - self.minimize_button.height()) / 2)
         return super(BasicTitleBar, self).resizeEvent(event)
 
