@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPaintEvent, QPainter, QIcon, QPixmap
+from PyQt5.QtGui import QPaintEvent, QPainter, QIcon
 from PyQt5.QtWidgets import QPushButton, QWidget
 
 

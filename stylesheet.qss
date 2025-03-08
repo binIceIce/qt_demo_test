@@ -2,3 +2,42 @@ QPushButton {
     border-radius: 30px;
     border: 2px solid #CCC;
 }
+
+/* 对 button 的样式进行设置，如果使用默认的边框，看起来会比较丑 */
+BasicTitleBar > QPushButton#win_minimize_button,
+BasicTitleBar > QPushButton#win_maximize_button,
+BasicTitleBar > QPushButton#win_close_button {
+    min-width: 14px;
+    min-height: 14px;
+    max-width: 14px;
+    max-height: 14px;
+    border: 0px;
+    border-radius: 0px;
+    padding: 0px;
+    qproperty-iconSize: 14px 14px;
+    background:transparent;
+}
+
+MainTitleBar > QPushButton {
+    border: none;
+    border-radius: 0px;
+    padding: 0px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    qproperty-iconSize: 20px 20px;
+    background:transparent;
+}
+
+MainTitleBar > QPushButton#user_profile_button {
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    qproperty-iconSize: 30px 30px;
+}
+
+UserProfileWidget {
+    border: 1px solid #e3e3e3;
+}
